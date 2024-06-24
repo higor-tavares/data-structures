@@ -31,10 +31,34 @@ func (bst *BinarySearchTree) InOrderTransverse(callback func(node *Node) interfa
 	bst.inOrderTransverseNode(bst.root, callback)
 }
 
+func (bst *BinarySearchTree) PreOrderTransverse(callback func(node *Node) interface{}) {
+	bst.preOrderTransverseNode(bst.root, callback)
+}
+
+func (bst *BinarySearchTree) PostOrderTranverse(callback func(node *Node) interface{}) {
+	bst.postOrderTransverseNode(bst.root, callback)
+}
+
 func (bst *BinarySearchTree) inOrderTransverseNode(node *Node, callback func(node *Node) interface{}) {
 	if node != nil {
 		bst.inOrderTransverseNode(node.left, callback)
 		callback(node)
 		bst.inOrderTransverseNode(node.right, callback)
+	}
+}
+
+func (bst *BinarySearchTree) preOrderTransverseNode(node *Node, callback func(node *Node) interface{}) {
+	if node != nil {
+		callback(node)
+		bst.preOrderTransverseNode(node.left, callback)
+		bst.preOrderTransverseNode(node.right, callback)
+	}
+}
+
+func (bst *BinarySearchTree) postOrderTransverseNode(node *Node, callback func(node *Node) interface{}) {
+	if node != nil {
+		bst.postOrderTransverseNode(node.left, callback)
+		bst.postOrderTransverseNode(node.right, callback)
+		callback(node)
 	}
 }
