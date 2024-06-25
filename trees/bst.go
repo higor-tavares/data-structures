@@ -39,6 +39,61 @@ func (bst *BinarySearchTree) PostOrderTranverse(callback func(node *Node) interf
 	bst.postOrderTransverseNode(bst.root, callback)
 }
 
+func (bst *BinarySearchTree) Remove(value int) {
+	bst.root = bst.removeNode(value, bst.root)
+}
+
+func (bst *BinarySearchTree) removeNode(value int, node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+	if value > node.value {
+		node.right = bst.removeNode(value, node.right)
+		return node
+	} else if value < node.value {
+		node.left = bst.removeNode(value, node.left)
+		return node
+	} else {
+		if node.right == nil && node.left == nil {
+			node = nil
+			return node
+		} else if node.left == nil {
+			node = node.right
+			return node
+		} else if node.right == nil {
+			node = node.left
+			return node
+		} else {
+			min := bst.minNode(node.right)
+			node.value = min.value
+			node.right = bst.removeNode(value, node.right)
+			return node
+		}
+	}
+}
+
+func (bst *BinarySearchTree) Min() *Node {
+	return bst.minNode(bst.root)
+}
+
+func (bst *BinarySearchTree) Max() *Node {
+	return bst.maxNode(bst.root)
+}
+
+func (bst *BinarySearchTree) minNode(node *Node) *Node {
+	if node.left == nil {
+		return node
+	}
+	return bst.minNode(node.left)
+}
+
+func (bst *BinarySearchTree) maxNode(node *Node) *Node {
+	if node.right == nil {
+		return node
+	}
+	return bst.maxNode(node.right)
+}
+
 func (bst *BinarySearchTree) inOrderTransverseNode(node *Node, callback func(node *Node) interface{}) {
 	if node != nil {
 		bst.inOrderTransverseNode(node.left, callback)

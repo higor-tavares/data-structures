@@ -36,3 +36,27 @@ func TestInOrderTransverse(t *testing.T) {
 		return nil
 	})
 }
+
+func TestMinValue(t *testing.T) {
+	values := []int{8, 3, 16, 10, 2, 5, 9, 1, 33}
+	bst := &BinarySearchTree{}
+	for i := 0; i < len(values); i++ {
+		bst.Insert(values[i])
+	}
+	min := bst.Min()
+	if min.value != 1 {
+		t.Fatalf("The mininmun value should be equals 1 not %d", min.value)
+	}
+}
+
+func TestMaxValue(t *testing.T) {
+	values := []int{8, 3, 16, 10, 2, 5, 9, 1, 33}
+	bst := &BinarySearchTree{}
+	for i := 0; i < len(values); i++ {
+		bst.Insert(values[i])
+	}
+	max := bst.Max()
+	if max.value != 33 {
+		t.Fatalf("The mininmun value should be equals 33 not %d", max.value)
+	}
+}
