@@ -60,3 +60,20 @@ func TestMaxValue(t *testing.T) {
 		t.Fatalf("The mininmun value should be equals 33 not %d", max.value)
 	}
 }
+
+func TestSearchValues(t *testing.T) {
+	values := []int{8, 3, 16, 10, 2, 5, 9, 1, 33}
+	bst := &BinarySearchTree{}
+	for i := 0; i < len(values); i++ {
+		bst.Insert(values[i])
+	}
+	find := bst.Search(10)
+	notFind := bst.Search(12)
+
+	if find == nil {
+		t.Fatalf("Sould find 10 value")
+	}
+	if notFind != nil {
+		t.Fatalf("Value %d should be not found!", notFind.value)
+	}
+}

@@ -87,6 +87,23 @@ func (bst *BinarySearchTree) minNode(node *Node) *Node {
 	return bst.minNode(node.left)
 }
 
+func (bst *BinarySearchTree) Search(value int) *Node {
+	return bst.searchNode(value, bst.root)
+}
+
+func (bst *BinarySearchTree) searchNode(value int, node *Node) *Node {
+	if node == nil {
+		return nil
+	}
+	if node.value == value {
+		return node
+	} else if value > node.value {
+		return bst.searchNode(value, node.right)
+	} else {
+		return bst.searchNode(value, node.left)
+	}
+}
+
 func (bst *BinarySearchTree) maxNode(node *Node) *Node {
 	if node.right == nil {
 		return node
